@@ -1,8 +1,3 @@
-<?php
-class home
-{
-}
-?>
 <html>
 <head>
   <title>Home</title>

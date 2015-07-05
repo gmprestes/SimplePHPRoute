@@ -1,13 +1,9 @@
 <?php
 
-/**
- * The route class
- */
 class route
 {
   private $notFoundUrl = '/';
   private $debug = false;
-
   private $_uri = array();
   private $_method = array();
 
