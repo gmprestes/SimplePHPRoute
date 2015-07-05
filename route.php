@@ -5,37 +5,69 @@
  */
 class route
 {
-  private $baseUrl = '/';
-  private $_uri = new array();
-  private $_method = new array();
+  private $notFoundUrl = '/';
+  private $debug = false;
 
-  function __construct($baseUrl)
+  private $_uri = array();
+  private $_method = array();
+
+  function __construct($notFoundUrl = null, $debug = null)
   {
-    if($baseUrl != null)
-      $this->baseUrl = $baseUrl;
+      if($notFoundUrl != null)
+        $this->notFoundUrl = $notFoundUrl;
+
+        if($debug != null)
+          $this->debug = $debug;
   }
 
-  public function add($url,$method = null)
+  public function add($url, $method = null)
   {
-  $this->_uri[] = '/' . trim($uri,'/');
+    $this->_uri[] = '/' . trim($url,'/');
 
-  if($method!= null)
-    $this->_method[] = $method;
+    if($method!= null)
+      $this->_method[] = $method;
   }
 
   public function handle()
   {
-    $uriGetParam = isset($_GET['uri']) ? '/' . $_GET['uri'] : '/';
-    foreach ($this->_uri as $key => $value) {
-      if(preg_match("#^$value$#",$uriGetParam))
+    $url = $_SERVER['REQUEST_URI'];
+    foreach ($this->_uri as $key => $value)
+    {
+      if($value == $url)
       {
         $method = $this->_method[$key];
-        if(is_string($method))
-          new $userMethod();
+        try
+        {
+          if(is_string($method))
+          {
+            if(file_exists($method))
+              require $method;
+            else
+              $this->handleNotFound();
+          }
           else
-          call_user_func($method);
+            call_user_func($method);
+
+            return;
+          }
+          catch(Exception $ex)
+          {
+            print_r('Error on handle route' . $url);
+            if($this->debug)
+            {
+              print_r('<pre>');
+              print_r($ex);
+            }
+          }
       }
     }
+
+    $this->handleNotFound();
+  }
+
+  function handleNotFound()
+  {
+      header('Location: '.$this->notFoundUrl);
   }
 
 }
