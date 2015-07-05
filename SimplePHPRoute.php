@@ -1,6 +1,6 @@
 <?php
 
-class route
+class SimplePHPRoute
 {
   private $notFoundUrl = '/';
   private $debug = false;
