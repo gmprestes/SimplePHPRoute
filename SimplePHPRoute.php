@@ -1,11 +1,8 @@
 <?php
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Original project : Copyright (c) 2009 Jacob Wright
-// https://github.com/jacwright/RestServer
-//
 // Copyright (c) 2015 Guilherme M Prestes da Silva
-// https://github.com/gmprestes/PowerfulAPI
+// https://github.com/gmprestes/SimplePHPRoute
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal

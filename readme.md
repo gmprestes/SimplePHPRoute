@@ -30,7 +30,7 @@ $route->handle();
 ```
 ##404 - Not Found Error on Handling
 If you don't configure the default 404 - Not Found route, Simple PHP Route will redirect to '/' of your site.
-You can configure default 404 redirect on create a Simple PHP Route instance.
+You can configure default 404 redirect when you create a Simple PHP Route instance.
 
 ```php
 require 'route.php';
