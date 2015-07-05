@@ -3,13 +3,13 @@ Very simple and easy way to use routes in PHP.
 
 It's fully independent of other frameworks.
 
-#How to use
+##How to use
 Just copy route.php, inde.php and .htacces files into your application directory.
 
-#Configuring Routes
+##Configuring Routes
 It's to easy to configure routes. Just add your routes in index.php like this :
 
-´´´php
+```php
 require 'route.php';
 
 // Do not run debug mode on production, because it exposes exception details
@@ -26,4 +26,4 @@ $route->add('/404', '404.php');
 
 $route->handle();
 
-´´´
+```
