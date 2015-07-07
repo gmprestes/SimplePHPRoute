@@ -1,8 +1,11 @@
 <?php
 ////////////////////////////////////////////////////////////////////////////////
 //
+// Original project : Copyright (c) 2009 Jacob Wright
+// https://github.com/jacwright/RestServer
+//
 // Copyright (c) 2015 Guilherme M Prestes da Silva
-// https://github.com/gmprestes/SimplePHPRoute
+// https://github.com/gmprestes/PowerfulAPI
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -50,7 +53,8 @@ class SimplePHPRoute
 
   public function handle()
   {
-    $url = $_SERVER['REQUEST_URI'];
+    print_r($_SERVER['REQUEST_URI']);
+    $url = explode('?',$_SERVER['REQUEST_URI'])[0];
     foreach ($this->_uri as $key => $value)
     {
       if($value == $url)
