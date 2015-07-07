@@ -36,7 +36,7 @@ You can configure default 404 redirect when you create a Simple PHP Route instan
 require 'route.php';
 
 // Set 404 - Not Found redirection to '/404'
-$route = new route('/404');
+$route = new SimplePHPRoute('/404');
 
 // Put your routes above
 $route->add('/', 'home.php');
