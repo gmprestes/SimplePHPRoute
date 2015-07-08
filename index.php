@@ -7,7 +7,7 @@ $route = new SimplePHPRoute('/404', true);
 
 // Put your routes above
 $route->add('/', 'home.php');
-$route->add('/site/contact', 'contact.php');
+$route->add('/contact/{param}', 'contact.php');
 $route->add('/about', 'about.php');
 
 // Error route

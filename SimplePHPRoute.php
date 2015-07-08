@@ -1,8 +1,11 @@
 <?php
 ////////////////////////////////////////////////////////////////////////////////
 //
+// Original project : Copyright (c) 2009 Jacob Wright
+// https://github.com/jacwright/RestServer
+//
 // Copyright (c) 2015 Guilherme M Prestes da Silva
-// https://github.com/gmprestes/SimplePHPRoute
+// https://github.com/gmprestes/PowerfulAPI
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -50,45 +53,59 @@ class SimplePHPRoute
 
   public function handle()
   {
-    print_r($_SERVER['REQUEST_URI']);
-    $url = explode('?',$_SERVER['REQUEST_URI'])[0];
+    $splitUrl = explode('/',strtolower(explode('?',$_SERVER['REQUEST_URI'])[0]));
     foreach ($this->_uri as $key => $value)
     {
-      if($value == $url)
-      {
-        $method = $this->_method[$key];
-        try
+        $splitValue = explode('/',strtolower($value));
+        if(count($splitUrl) == count($splitValue))
         {
-          if(is_string($method))
+          $ok = true;
+          foreach ($splitUrl as $index => $item)
           {
-            if(file_exists($method))
-              require $method;
-            else
-              $this->handleNotFound();
-          }
-          else
-            call_user_func($method);
-
-            return;
-          }
-          catch(Exception $ex)
-          {
-            print_r('Error on handle route' . $url);
-            if($this->debug)
+            if($splitValue[$index] != '{param}' && $item != $splitValue[$index])
             {
-              print_r('<pre>');
-              print_r($ex);
+              $ok = false;
+              break;
             }
           }
-      }
-    }
 
-    $this->handleNotFound();
+          if($ok)
+          {
+            $method = $this->_method[$key];
+            try
+            {
+              if(is_string($method))
+              {
+                if(file_exists($method))
+                  require $method;
+                else
+                  $this->handleNotFound();
+              }
+              else
+                call_user_func($method);
+
+              return;
+            }
+            catch(Exception $ex)
+            {
+              print_r('Error on handle route' . $url);
+              if($this->debug)
+              {
+                print_r('<pre>');
+                print_r($ex);
+              }
+            }
+          } // fecha if OK
+        } // fecha if count
+      } // fecha foreach
+
+      $this->handleNotFound();
   }
 
   function handleNotFound()
   {
       header('Location: '.$this->notFoundUrl);
+      return;
   }
 
 }
