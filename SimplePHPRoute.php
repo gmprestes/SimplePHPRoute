@@ -64,7 +64,7 @@ class SimplePHPRoute
           foreach ($splitUrl as $index => $item)
           {
             if($splitValue[$index] == '{param}')
-              array_push($params,$splitValue[$index]);
+              array_push($params, $item);
 
             if($splitValue[$index] != '{param}' && $item != $splitValue[$index])
             {
